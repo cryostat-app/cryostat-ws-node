@@ -1,0 +1,14 @@
+{
+  "name": "@cryostat/ws",
+  "version": "0.0.0",
+  "description": "The websocket package for cryostat",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Luke-6723",
+  "license": "ISC",
+  "dependencies": {
+    "ws": "^8.13.0"
+  }
+}
