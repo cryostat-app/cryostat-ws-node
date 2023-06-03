@@ -1,6 +1,6 @@
 const CryoStatClient = require('.')
 
-const client = new CryoStatClient('123', {
+const client = new CryoStatClient('changeme', {
   verbose: true,
   url: 'ws://localhost:8080/'
 })
