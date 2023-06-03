@@ -1,6 +1,7 @@
 const { WebSocket } = require('ws');
 const { EventEmitter } = require('events');
 const helpers = require('./helpers');
+const { handleMessage } = require('./handlers');
 
 /**
  * CryoStat client
@@ -13,7 +14,8 @@ class CryoStatClient extends EventEmitter {
    * @param {string} options.url Gateway url
    * @param {boolean} options.verbose Enable verbose logging
    */
-  constructor (token, options) {
+  constructor(token, options) {
+    super();
     this.verbose = options?.verbose || false;
     this.log = this.verbose ? helpers.verboseLog : () => { };
     this.url = options?.url || 'wss://gateway.cyrostat.app/';
@@ -29,10 +31,17 @@ class CryoStatClient extends EventEmitter {
 
     this.ws = new WebSocket(this.url);
 
+    this.ws.on('message', handleMessage.bind(this));
+
     this.ws.on('open', _ => {
+      this.log('debug', 'Websocket Connected');
       // TODO: Handle authentication
+    });
+
+    this.ws.on('close', _ => {
+      this.log('debug', 'Websocket Disconnected');
     });
   }
 }
 
-module.exports = CryoStatClient
+module.exports = CryoStatClient;
