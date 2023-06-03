@@ -5,15 +5,17 @@
 function handleMessage (message) {
   try { 
     message = JSON.parse(message)
-    this.log('debug', 'Message recieved:', message)
   } catch {
     this.log('error', 'Message failed to parse:', message)
   }
 
   switch(message.e) {
     case 'HEARTBEAT': {
-      this.log('debug', 'Sent heartbeat')
-      this.ws.send(JSON.stringify({ t: 2, e: 'HEARTBEAT_RESPONSE' }))
+      this.ws.send(JSON.stringify({ t: 2, e: 'HEARTBEAT' }))
+      this.log('debug', 'Sent heartbeat', '(Ping:', Date.now() - message.d, 'ms)')
+    } break;
+    default: {
+      this.log('debug', 'Message recieved:', message)
     }
   }
 }

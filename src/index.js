@@ -17,7 +17,7 @@ class CryoStatClient extends EventEmitter {
   constructor(token, options) {
     super();
     this.verbose = options?.verbose || false;
-    this.log = this.verbose ? helpers.verboseLog : () => { };
+    this.log = helpers.verboseLog
     this.url = options?.url || 'wss://gateway.cyrostat.app/';
     this.token = token;
     this.ws = null;
